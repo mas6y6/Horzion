@@ -1,45 +1,61 @@
 package com.mas6y6.horzion
 
 import net.minecraft.world.item.BlockItem
-import net.minecraft.world.item.CreativeModeTabs
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.item.Item
-import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.RegistryObject
-import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.resources.ResourceLocation
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
+import net.minecraft.core.registries.Registries
 import net.minecraftforge.eventbus.api.IEventBus
+import net.minecraft.network.chat.Component
+import com.mas6y6.horzion.Horzion
 
-
-object ModRegisteries {
+object ModRegistries {
+    // Register Blocks
     val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
-        Block(
-            BlockBehaviour.Properties.of(Blocks.STONE)  // Corrected import for Material
-                .strength(3.0f)
-                .requiresCorrectToolForDrops()
+        Block(BlockBehaviour.Properties.of()
+            .strength(4.0f, 5.0f)
+            .requiresCorrectToolForDrops()
+            .sound(SoundType.STONE)
+            .lightLevel { 0 }
         )
     }
-    
+
+    // Register BlockItem separately
     val AIRIUM_ORE_ITEM: RegistryObject<Item> = Horzion.ITEMS.register("airium_ore") {
         BlockItem(AIRIUM_ORE.get(), Item.Properties())
     }
 
-    public val HORZION_TAB: CreativeModeTab = CreativeModeTab.builder()
-        .icon { AIRIUM_ORE.get() }
-        .title { "Horzion" }
-        .build()
+    // Register Items
+    val RAW_AIRIUM: RegistryObject<Item> = Horzion.ITEMS.register("raw_airium") {
+        Item(Item.Properties())
+    }
 
-    // Register your loot table in a JSON file in resources folder
-    // LootTableManager.registerLootTable(AIRIUM_ORE.get(), ResourceLocation("horzion", "blocks/airium_ore")) // This line is not needed
+    val AIRIUM_INGOT: RegistryObject<Item> = Horzion.ITEMS.register("airium_ingot") {
+        Item(Item.Properties())
+    }
+
+    // Creative Tab - Avoid direct calls to `.get()` during registration
+    val HORZION_TAB: RegistryObject<CreativeModeTab> = Horzion.CREATIVE_TABS.register("horzion_tab") {
+        CreativeModeTab.builder()
+            .icon { AIRIUM_INGOT.get().defaultInstance } // Lazy evaluation
+            .title(Component.translatable("itemGroup.horzion_tab")) // Use translatable for localization
+            .displayItems { _, output ->
+                output.accept(AIRIUM_ORE_ITEM.get()) // Use BlockItem
+                output.accept(RAW_AIRIUM.get())
+                output.accept(AIRIUM_INGOT.get())
+            }
+            .build()
+    }
+
+    // Ensure proper order of registration
     fun register(modEventBus: IEventBus) {
-        modEventBus.addListener(this::onRegister)
-
-        CreativeModeTabEvent.REGISTER.register { event ->
-            event.addTab(HORZION_TAB)
-        }
+        Horzion.BLOCKS.register(modEventBus)
+        Horzion.ITEMS.register(modEventBus)
+        Horzion.CREATIVE_TABS.register(modEventBus)
     }
 }

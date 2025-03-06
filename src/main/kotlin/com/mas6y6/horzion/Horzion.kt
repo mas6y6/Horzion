@@ -1,61 +1,79 @@
 package com.mas6y6.horzion
 
-import com.mas6y6.horzion.Blocks.AiriumOre
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.registries.RegistryObject
 import net.minecraftforge.registries.ForgeRegistries
+import net.minecraftforge.registries.RegistryObject
 import net.minecraftforge.registries.RegisterEvent
 import net.minecraftforge.event.server.ServerStartingEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.CreativeModeTab
+import net.minecraft.world.item.CreativeModeTab.Output
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.material.Material
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.network.chat.Component
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
+
 @Mod("horzion")
 class Horzion {
-    public val BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
-    public val ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
+    companion object {
+        val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
+        val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
+        val LOGGER: Logger = LogManager.getLogger()
+        val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
+    DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "horzion")
+
 
     init {
-        val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
+        try {
+    
+            LOGGER.info("Horzion Mod Initialized")
 
-        modEventBus.addListener(this::commonSetup)
+            val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
+            LOGGER.info("Mod Event Bus initialized")
 
-        BLOCKS.register(modEventBus)
-        ITEMS.register(modEventBus)
+            ModRegistries.register(modEventBus)
+            LOGGER.info("Registered ModRegistries")
 
+            BLOCKS.register(modEventBus)
+            LOGGER.info("Registered BLOCKS DeferredRegister")
 
-        BlockRegisteries.register()
-        MinecraftForge.EVENT_BUS.register(this)
+            ITEMS.register(modEventBus)
+            LOGGER.info("Registered ITEMS DeferredRegister")
+
+            CREATIVE_TABS.register(modEventBus)
+            LOGGER.info("Registered CREATIVE menu")
+
+            modEventBus.addListener(this::commonSetup)
+            MinecraftForge.EVENT_BUS.register(this)
+            LOGGER.info("Listeners registered")
+        } catch (e: Exception) {
+            LOGGER.error("Error during initialization: ${e.message}", e)
+        }
     }
 
-    private fun commonSetup(event: FMLCommonSetupEvent) {
-        println("Above the Horzions is ready")
+    fun commonSetup(event: FMLCommonSetupEvent) {
+        LOGGER.info("Horzion commonSetup event called")
     }
 
     @SubscribeEvent
     fun onServerStarting(event: ServerStartingEvent) {
-        println("We hope you enjoy!")
+        LOGGER.info("Horzion onServerStarting called")
     }
 
     @SubscribeEvent
     fun onSetup(event: FMLCommonSetupEvent) {
-        println("Setup completed")
+        LOGGER.info("Horzion onSetup called")
+        } 
     }
-"""
-    @SubscribeEvent
-    fun register(event: RegisterEvent) {
-        event.register(ForgeRegistries.Keys.BLOCKS,
-            { helper:RegistryObject ->
-                helper.register
-            }, p2)
-    }
-"""
 }
-
