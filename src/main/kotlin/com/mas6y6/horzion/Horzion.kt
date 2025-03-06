@@ -19,31 +19,65 @@ import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.CreativeModeTab.Output
 import net.minecraft.world.level.block.Block
 import net.minecraft.core.registries.Registries
+import net.minecraft.world.level.block.state.BlockBehaviour
+import net.minecraft.world.level.block.SoundType
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import com.mojang.logging.LogUtils;
 
 @Mod("horzion")
 class Horzion {
     companion object {
         val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
         val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
-        val LOGGER: Logger = LogManager.getLogger()
+        val LOGGER = LogUtils.getLogger();
         val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "horzion")
 
+        val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
+            Block(BlockBehaviour.Properties.of()
+                .strength(4.0f, 5.0f)
+                .requiresCorrectToolForDrops()
+                .sound(SoundType.STONE)
+                .lightLevel { 0 }
+            )
+        }
+
+        // Register BlockItem separately
+        val AIRIUM_ORE_ITEM: RegistryObject<Item> = ITEMS.register("airium_ore") {
+            BlockItem(AIRIUM_ORE.get(), Item.Properties())
+        }
+
+        // Register Items
+        val RAW_AIRIUM: RegistryObject<Item> = ITEMS.register("raw_airium") {
+            Item(Item.Properties())
+        }
+
+        val AIRIUM_INGOT: RegistryObject<Item> = ITEMS.register("airium_ingot") {
+            Item(Item.Properties())
+        }
+
+        // Creative Tab - Avoid direct calls to `.get()` during registration
+        val HORZION_TAB: RegistryObject<CreativeModeTab> = CREATIVE_TABS.register("horzion_tab") {
+            CreativeModeTab.builder()
+                .icon { AIRIUM_INGOT.get().defaultInstance } // Lazy evaluation
+                .title(Component.translatable("itemGroup.horzion_tab")) // Use translatable for localization
+                .displayItems { _, output ->
+                    output.accept(AIRIUM_ORE_ITEM.get()) // Use BlockItem
+                    output.accept(RAW_AIRIUM.get())
+                    output.accept(AIRIUM_INGOT.get())
+                }
+                .build()
+        }
 
     init {
         try {
-    
             LOGGER.info("Horzion Mod Initialized")
 
             val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
             LOGGER.info("Mod Event Bus initialized")
-
-            ModRegistries.register(modEventBus)
-            LOGGER.info("Registered ModRegistries")
 
             BLOCKS.register(modEventBus)
             LOGGER.info("Registered BLOCKS DeferredRegister")
@@ -75,5 +109,14 @@ class Horzion {
     fun onSetup(event: FMLCommonSetupEvent) {
         LOGGER.info("Horzion onSetup called")
         } 
+    }
+
+    @SubscribeEvent
+    fun onRegister(event: RegisterEvent) {
+        if (event.registryKey == Registries.CREATIVE_MODE_TAB) {
+            event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation("horzion", "horzion_tab")) {
+                HORZION_TAB.get()
+            }
+        }
     }
 }
