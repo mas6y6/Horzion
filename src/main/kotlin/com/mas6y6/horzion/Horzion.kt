@@ -38,19 +38,16 @@ class Horzion {
 
         val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
             Block(BlockBehaviour.Properties.of()
-                .strength(4.0f, 5.0f)
-                .requiresCorrectToolForDrops()
+                .strength(1.5f, 1.5f)
                 .sound(SoundType.STONE)
                 .lightLevel { 0 }
             )
         }
 
-        // Register BlockItem separately
         val AIRIUM_ORE_ITEM: RegistryObject<Item> = ITEMS.register("airium_ore") {
             BlockItem(AIRIUM_ORE.get(), Item.Properties())
         }
 
-        // Register Items
         val RAW_AIRIUM: RegistryObject<Item> = ITEMS.register("raw_airium") {
             Item(Item.Properties())
         }
