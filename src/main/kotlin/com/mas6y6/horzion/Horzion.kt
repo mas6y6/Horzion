@@ -49,8 +49,20 @@ class Horzion {
             )
         }
 
+        val BLOCK_OF_AIRUM: RegistryObject<Block> = Horzion.BLOCKS.register("block_of_airium") {
+            Block(BlockBehaviour.Properties.of()
+                .strength(2f, 2f)
+                .sound(SoundType.STONE)
+                .lightLevel { 0.1 }
+            )
+        }
+
         val AIRIUM_ORE_ITEM: RegistryObject<Item> = ITEMS.register("airium_ore") {
             BlockItem(AIRIUM_ORE.get(), Item.Properties())
+        }
+
+        val BLOCK_OF_AIRUM_ITEM: RegistryObject<Item> = ITEMS.register("block_of_airium") {
+            BlockItem(BLOCK_OF_AIRUM.get(), Item.Properties())
         }
 
         val RAW_AIRIUM: RegistryObject<Item> = ITEMS.register("raw_airium") {
@@ -98,6 +110,7 @@ class Horzion {
                     output.accept(AIRIUM_SWORD.get())
                     output.accept(AIRIUM_SHOVEL.get())
                     output.accept(AIRIUM_HOE.get())
+                    output.accept(BLOCK_OF_AIRUM_ITEM.get())
                 }
                 .build()
         }
