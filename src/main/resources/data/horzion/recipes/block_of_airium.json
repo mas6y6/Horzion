@@ -1,0 +1,15 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        "AAA",
+        "AAA",
+        "AAA"
+    ],
+    "keys":{
+        "a":"horizon:airium_ingot"
+    },
+    "result":{
+        "id":"horzion:block_of_airium",
+        "count":1
+    }
+}
