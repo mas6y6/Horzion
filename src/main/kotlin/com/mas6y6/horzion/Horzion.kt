@@ -33,7 +33,7 @@ import net.minecraft.world.item.*
 
 
 @Mod("horzion")
-class Horzion {
+class Horzion(context: FMLJavaModLoadingContext) {
     companion object {
         val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
         val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")

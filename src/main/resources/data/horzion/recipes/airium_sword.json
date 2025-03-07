@@ -5,7 +5,7 @@
         " A ",
         " S "
     ],
-    "keys":{
+    "key":{
         "a":"horzion:airium_ingot",
         "s":"minecraft:stick"
     },
