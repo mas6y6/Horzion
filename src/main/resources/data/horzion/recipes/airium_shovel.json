@@ -6,8 +6,8 @@
         " S "
     ],
     "keys":{
-        "A":"horzion:airium_ingot",
-        "S":"minecraft:stick"
+        "a":"horzion:airium_ingot",
+        "s":"minecraft:stick"
     },
     "result":{
         "id":"horzion:airium_shovel",
