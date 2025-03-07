@@ -1,7 +1,7 @@
 {
     "type":"minecraft:crafting_shaped",
     "pattern":[
-        "AAA",
+        "AA ",
         " S ",
         " S "
     ],
@@ -10,7 +10,7 @@
         "S":"minecraft:stick"
     },
     "result":{
-        "id":"horzion:airium_pickaxe",
+        "id":"horzion:airium_hoe",
         "count":1
     }
 }

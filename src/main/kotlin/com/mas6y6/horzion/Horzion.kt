@@ -6,7 +6,6 @@ import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.RegistryObject
 import net.minecraftforge.registries.RegisterEvent
@@ -24,6 +23,7 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.LogManager
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import org.apache.logging.log4j.Logger
 import com.mojang.logging.LogUtils
 
@@ -53,7 +53,7 @@ class Horzion {
             Block(BlockBehaviour.Properties.of()
                 .strength(2f, 2f)
                 .sound(SoundType.STONE)
-                .lightLevel { 0.1 }
+                .lightLevel { 1 }
             )
         }
 
