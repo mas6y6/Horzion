@@ -11,7 +11,6 @@ import net.minecraftforge.registries.RegistryObject
 import net.minecraftforge.registries.RegisterEvent
 import net.minecraftforge.event.server.ServerStartingEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Item
@@ -25,7 +24,13 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import com.mojang.logging.LogUtils;
+import com.mojang.logging.LogUtils
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
+
+import net.minecraft.world.item.*
+
+// I suck at kotlin -mas
+
 
 @Mod("horzion")
 class Horzion {
@@ -56,6 +61,29 @@ class Horzion {
             Item(Item.Properties())
         }
 
+        val AIRIUM_PICKAXE: RegistryObject<Item> = ITEMS.register("airium_pickaxe") {
+            PickaxeItem(AiriumToolMaterial, // Tool properties
+            1, // Base attack of pickaxe
+            -2.8f, // Attack Speed (higher negative values make it slower)
+            Item.Properties())
+        }
+
+        val AIRIUM_AXE: RegistryObject<Item> = ITEMS.register("airium_axe") {
+            AxeItem(AiriumToolMaterial, 5.0f, -3.0f, Item.Properties())
+        }
+
+        val AIRIUM_SWORD: RegistryObject<Item> = ITEMS.register("airium_sword") {
+            SwordItem(AiriumToolMaterial, 3, -2.4f, Item.Properties())
+        }
+
+        val AIRIUM_HOE: RegistryObject<Item> = ITEMS.register("airium_hoe") {
+            HoeItem(AiriumToolMaterial, -2, 0.0f, Item.Properties())
+        }
+
+        val AIRIUM_SHOVEL: RegistryObject<Item> = ITEMS.register("airium_shovel") {
+            ShovelItem(AiriumToolMaterial, 1.5f, -3.0f, Item.Properties())
+        }
+
         // Creative Tab - Avoid direct calls to `.get()` during registration
         val HORZION_TAB: RegistryObject<CreativeModeTab> = CREATIVE_TABS.register("horzion_tab") {
             CreativeModeTab.builder()
@@ -65,6 +93,11 @@ class Horzion {
                     output.accept(AIRIUM_ORE_ITEM.get()) // Use BlockItem
                     output.accept(RAW_AIRIUM.get())
                     output.accept(AIRIUM_INGOT.get())
+                    output.accept(AIRIUM_AXE.get())
+                    output.accept(AIRIUM_PICKAXE.get())
+                    output.accept(AIRIUM_SWORD.get())
+                    output.accept(AIRIUM_SHOVEL.get())
+                    output.accept(AIRIUM_HOE.get())
                 }
                 .build()
         }
@@ -73,7 +106,7 @@ class Horzion {
         try {
             LOGGER.info("Horzion Mod Initialized")
 
-            val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
+            val modEventBus: IEventBus = FMLModLoadingContext.get().modEventBus
             LOGGER.info("Mod Event Bus initialized")
 
             BLOCKS.register(modEventBus)
