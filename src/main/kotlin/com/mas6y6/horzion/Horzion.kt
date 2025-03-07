@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.DeferredRegister
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.RegistryObject
 import net.minecraftforge.registries.RegisterEvent
@@ -25,7 +26,6 @@ import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import com.mojang.logging.LogUtils
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 
 import net.minecraft.world.item.*
 
@@ -53,7 +53,7 @@ class Horzion {
             Block(BlockBehaviour.Properties.of()
                 .strength(2f, 2f)
                 .sound(SoundType.STONE)
-                .lightLevel { 0.1 }
+                .lightLevel { 1 } // THIS IS A INT NOT A FLOAT
             )
         }
 
@@ -119,7 +119,7 @@ class Horzion {
         try {
             LOGGER.info("Horzion Mod Initialized")
 
-            val modEventBus: IEventBus = FMLModLoadingContext.get().modEventBus
+            val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
             LOGGER.info("Mod Event Bus initialized")
 
             BLOCKS.register(modEventBus)
