@@ -53,7 +53,7 @@ class Horzion {
             Block(BlockBehaviour.Properties.of()
                 .strength(2f, 2f)
                 .sound(SoundType.STONE)
-                .lightLevel { 1 } // THIS IS A INT NOT A FLOAT
+                .lightLevel { 0.1 }
             )
         }
 
