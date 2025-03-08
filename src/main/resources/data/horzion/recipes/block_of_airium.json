@@ -6,7 +6,7 @@
         "AAA"
     ],
     "key":{
-        "a":"horizon:airium_ingot"
+        "A":{"item":"horzion:airium_ingot"}
     },
     "result":{
         "id":"horzion:block_of_airium",
