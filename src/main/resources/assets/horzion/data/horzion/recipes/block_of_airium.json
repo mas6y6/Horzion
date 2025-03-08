@@ -9,7 +9,7 @@
         "A":{"item":"horzion:airium_ingot"}
     },
     "result":{
-        "id":"horzion:block_of_airium",
+        "item":"horzion:block_of_airium",
         "count":1
     }
 }

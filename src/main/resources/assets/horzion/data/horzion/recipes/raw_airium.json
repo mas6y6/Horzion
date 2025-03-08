@@ -1,0 +1,13 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        "A"
+    ],
+    "key":{
+        "A":{"item":"horzion:block_of_airium"}
+    },
+    "result":{
+        "item":"horzion:raw_airium",
+        "count":9
+    }
+}

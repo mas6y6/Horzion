@@ -1,16 +1,16 @@
 {
     "type":"minecraft:crafting_shaped",
     "pattern":[
-        "AA",
-        " S",
-        " S"
+        "AAA",
+        " S ",
+        " S "
     ],
     "key":{
         "A":{"item":"horzion:airium_ingot"},
         "S":{"item":"minecraft:stick"}
     },
     "result":{
-        "id":"horzion:airium_hoe",
+        "item":"horzion:airium_pickaxe",
         "count":1
     }
 }

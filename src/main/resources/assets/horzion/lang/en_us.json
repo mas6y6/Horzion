@@ -3,5 +3,10 @@
     "item.horzion.raw_airium": "Raw Airium",
     "item.horzion.airium_ingot": "Airium Ingot",
     "block.horzion.airium_ore": "Airium Ore",
-    "itemGroup.horzion_tab": "Horzion"
+    "itemGroup.horzion_tab": "Horzion",
+    "block.horzion.block_of_airium": "Block of Airium",
+    "item.horzion.airium_sword": "Airium Sword",
+    "item.horzion.airium_pickaxe": "Airium Pickaxe",
+    "item.horzion.airium_shovel": "Airium Shovel",
+    "item.horzion.airium_hoe": "Airium Hoe"
   }

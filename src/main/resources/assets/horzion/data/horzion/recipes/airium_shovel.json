@@ -10,7 +10,7 @@
         "S":{"item":"minecraft:stick"}
     },
     "result":{
-        "id":"horzion:airium_shovel",
+        "item":"horzion:airium_shovel",
         "count":1
     }
 }
