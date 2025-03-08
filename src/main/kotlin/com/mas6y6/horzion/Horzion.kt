@@ -85,7 +85,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
         }
 
         val AIRIUM_SWORD: RegistryObject<Item> = ITEMS.register("airium_sword") {
-            SwordItem(AiriumToolMaterial, 3, -2.4f, Item.Properties())
+            AiriumSword(Tiers.DIAMOND, 9999999999999999999999999999999999999f, -2.4f, Item.Properties())
         }
 
         val AIRIUM_HOE: RegistryObject<Item> = ITEMS.register("airium_hoe") {
