@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTabs
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.RecordItem
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.CreativeModeTab.Output
 import net.minecraft.world.level.block.Block
@@ -21,6 +22,8 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.sounds.SoundEvent
+import net.minecraft.sounds.SoundEvents
 import net.minecraft.network.chat.Component
 import org.apache.logging.log4j.LogManager
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
@@ -35,10 +38,11 @@ import net.minecraft.world.item.*
 @Mod("horzion")
 class Horzion(context: FMLJavaModLoadingContext) {
     companion object {
-        private val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
-        private val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
-        private val LOGGER = LogUtils.getLogger();
-        private val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
+        val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
+        val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
+        val SOUND_EVENTS: DeferredRegister<SoundEvent> = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "horzion")
+        val LOGGER = LogUtils.getLogger();
+        val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "horzion")
 
         private val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
@@ -96,6 +100,19 @@ class Horzion(context: FMLJavaModLoadingContext) {
             ShovelItem(AiriumToolMaterial, 1.5f, -3.0f, Item.Properties())
         }
 
+        val SPAMDISC: RegistryObject<Item> = ITEMS.register("spamdisc") {
+            RecordItem(
+                15,
+                { SPAMTRACK.get() },
+                Item.Properties().stacksTo(1).rarity(Rarity.RARE),
+                2840
+            )
+        }
+
+        val SPAMTRACK: RegistryObject<SoundEvent> = SOUND_EVENTS.register("bigshot") {
+            SoundEvent.createVariableRangeEvent(ResourceLocation("horzion", "bigshot"))
+        }
+
         // Creative Tab - Avoid direct calls to `.get()` during registration
         val HORZION_TAB: RegistryObject<CreativeModeTab> = CREATIVE_TABS.register("horzion_tab") {
             CreativeModeTab.builder()
@@ -111,6 +128,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
                     output.accept(AIRIUM_SHOVEL.get())
                     output.accept(AIRIUM_HOE.get())
                     output.accept(BLOCK_OF_AIRUM_ITEM.get())
+                    output.accept(SPAMDISC.get())
                 }
                 .build()
         }
@@ -127,6 +145,9 @@ class Horzion(context: FMLJavaModLoadingContext) {
 
             ITEMS.register(modEventBus)
             LOGGER.info("Registered ITEMS DeferredRegister")
+
+            SOUND_EVENTS.register(modEventBus)
+            LOGGER.info("Registered SOUND_EVENTS DeferredRegister")
 
             CREATIVE_TABS.register(modEventBus)
             LOGGER.info("Registered CREATIVE menu")

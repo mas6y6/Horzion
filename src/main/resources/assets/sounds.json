@@ -1,0 +1,10 @@
+{
+    "bigshot": {
+      "sounds": [
+        {
+          "name": "bigshot",
+          "stream": true
+        }
+      ]
+    }
+  }
