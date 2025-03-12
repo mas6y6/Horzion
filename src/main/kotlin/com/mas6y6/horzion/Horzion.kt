@@ -40,7 +40,6 @@ class Horzion(context: FMLJavaModLoadingContext) {
     companion object {
         val BLOCKS: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, "horzion")
         val ITEMS: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, "horzion")
-        val SOUND_EVENTS: DeferredRegister<SoundEvent> = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, "horzion")
         val LOGGER = LogUtils.getLogger();
         val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "horzion")
@@ -103,14 +102,10 @@ class Horzion(context: FMLJavaModLoadingContext) {
         val SPAMDISC: RegistryObject<Item> = ITEMS.register("spamdisc") {
             RecordItem(
                 15,
-                { SPAMTRACK.get() },
+                ModSounds.SPAMTRACK.get(),
                 Item.Properties().stacksTo(1).rarity(Rarity.RARE),
                 2840
             )
-        }
-
-        val SPAMTRACK: RegistryObject<SoundEvent> = SOUND_EVENTS.register("bigshot") {
-            SoundEvent.createVariableRangeEvent(ResourceLocation("horzion", "bigshot"))
         }
 
         // Creative Tab - Avoid direct calls to `.get()` during registration
@@ -146,7 +141,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
             ITEMS.register(modEventBus)
             LOGGER.info("Registered ITEMS DeferredRegister")
 
-            SOUND_EVENTS.register(modEventBus)
+            ModSounds.SOUND_EVENTS.register(modEventBus)
             LOGGER.info("Registered SOUND_EVENTS DeferredRegister")
 
             CREATIVE_TABS.register(modEventBus)

@@ -2,8 +2,8 @@
     "bigshot": {
       "sounds": [
         {
-          "name": "bigshot",
-          "stream": true
+          "name": "horzion:music/bigshot",
+          "stream": false
         }
       ]
     }
