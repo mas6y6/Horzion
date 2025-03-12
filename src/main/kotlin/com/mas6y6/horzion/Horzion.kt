@@ -44,7 +44,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
         val CREATIVE_TABS: DeferredRegister<CreativeModeTab> =
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "horzion")
 
-        val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
+        private val AIRIUM_ORE: RegistryObject<Block> = Horzion.BLOCKS.register("airium_ore") {
             Block(BlockBehaviour.Properties.of()
                 .strength(1.5f, 1.5f)
                 .sound(SoundType.STONE)
@@ -52,7 +52,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
             )
         }
 
-        val BLOCK_OF_AIRUM: RegistryObject<Block> = Horzion.BLOCKS.register("block_of_airium") {
+        private val BLOCK_OF_AIRUM: RegistryObject<Block> = Horzion.BLOCKS.register("block_of_airium") {
             Block(BlockBehaviour.Properties.of()
                 .strength(2f, 2f)
                 .sound(SoundType.STONE)
