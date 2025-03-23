@@ -72,7 +72,15 @@ class Horzion(context: FMLJavaModLoadingContext) {
             Item(Item.Properties())
         }
 
+        val RAW_HORZION: RegistryObject<Item> = ITEMS.register("raw_horzion") {
+            Item(Item.Properties())
+        }
+
         val AIRIUM_INGOT: RegistryObject<Item> = ITEMS.register("airium_ingot") {
+            Item(Item.Properties())
+        }
+
+        val HORZION_INGOT: RegistryObject<Item> = ITEMS.register("horzion_ingot") {
             Item(Item.Properties())
         }
 
@@ -88,7 +96,11 @@ class Horzion(context: FMLJavaModLoadingContext) {
         }
 
         val AIRIUM_SWORD: RegistryObject<Item> = ITEMS.register("airium_sword") {
-            AiriumSword(Tiers.DIAMOND, 9999999999999999999999999999999999999f, -2.4f, Item.Properties())
+            AiriumSword(Tiers.DIAMOND, 9999999999999999999999999999999999999f, -4.2f, Item.Properties())
+        }
+
+        val EXCALIBUR: RegistryObject<Item> = ITEMS.register("excalibur") {
+            Excalibur(Tiers.DIAMOND, 1000f, -1.0f, Item.Properties())
         }
 
         val AIRIUM_HOE: RegistryObject<Item> = ITEMS.register("airium_hoe") {
@@ -124,6 +136,9 @@ class Horzion(context: FMLJavaModLoadingContext) {
                     output.accept(AIRIUM_HOE.get())
                     output.accept(BLOCK_OF_AIRUM_ITEM.get())
                     output.accept(SPAMDISC.get())
+                    output.accept(EXCALIBUR.get())
+                    output.accept(RAW_HORZION.get())
+                    output.accept(HORZION_INGOT.get())
                 }
                 .build()
         }
@@ -135,14 +150,14 @@ class Horzion(context: FMLJavaModLoadingContext) {
             val modEventBus: IEventBus = FMLJavaModLoadingContext.get().modEventBus
             LOGGER.info("Mod Event Bus initialized")
 
+            ModSounds.SOUND_EVENTS.register(modEventBus)
+            LOGGER.info("Registered SOUND_EVENTS DeferredRegister")
+
             BLOCKS.register(modEventBus)
             LOGGER.info("Registered BLOCKS DeferredRegister")
 
             ITEMS.register(modEventBus)
             LOGGER.info("Registered ITEMS DeferredRegister")
-
-            ModSounds.SOUND_EVENTS.register(modEventBus)
-            LOGGER.info("Registered SOUND_EVENTS DeferredRegister")
 
             CREATIVE_TABS.register(modEventBus)
             LOGGER.info("Registered CREATIVE menu")
@@ -157,6 +172,7 @@ class Horzion(context: FMLJavaModLoadingContext) {
 
     fun commonSetup(event: FMLCommonSetupEvent) {
         LOGGER.info("Horzion commonSetup event called")
+        requireNotNull(ModSounds.SPAMTRACK.get()) { "SPAMTRACK is null (debug)" } //DEBUG////DEBUG////////<><><><><><><><><><><><>///idk
     }
 
     @SubscribeEvent

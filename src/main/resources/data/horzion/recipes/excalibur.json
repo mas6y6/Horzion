@@ -1,0 +1,16 @@
+{
+    "type":"minecraft:crafting_shaped",
+    "pattern":[
+        " A ",
+        "AAA",
+        " S "
+    ],
+    "key":{
+        "A":{"item":"horzion:horzion_ingot"},
+        "S":{"item":"minecraft:stick"}
+    },
+    "result":{
+        "item":"horzion:excalibur",
+        "count":1
+    }
+}

@@ -3,7 +3,7 @@
       "sounds": [
         {
           "name": "horzion:music/bigshot",
-          "stream": false
+          "stream": true
         }
       ]
     }

@@ -12,3 +12,12 @@ object AiriumToolMaterial : Tier {
     override fun getEnchantmentValue(): Int = 10 // Enchantability
     override fun getRepairIngredient(): Ingredient = Ingredient.of(Horzion.RAW_AIRIUM.get()) // Repair item
 }
+
+object HorzionToolMaterial : Tier {
+    override fun getLevel(): Int = 3
+    override fun getUses(): Int = 2000
+    override fun getSpeed(): Float = 7.0f
+    override fun getAttackDamageBonus(): Float = 4.0f
+    override fun getEnchantmentValue(): Int = 10
+    override fun getRepairIngredient(): Ingredient = Ingredient.of(Horzion.RAW_HORZION.get())
+}
